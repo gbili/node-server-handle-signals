@@ -1,6 +1,6 @@
-import http from 'http';
-
-export type Server = http.Server
+export type Server = {
+  close(callback?: (err?: Error) => void): Server;
+}
 
 export default function handleSignals(server: Server): Server {
   const shutdown = () => {
