@@ -1,6 +1,6 @@
-type CloseableServer = {
+export type CloseableServer = {
   close(callback?: (err?: Error) => void): CloseableServer;
 }
-type StoppableServer = {
+export type StoppableServer = {
   stop(): Promise<StoppableServer>;
 }

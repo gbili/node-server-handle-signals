@@ -1,6 +1,6 @@
 {
   "name": "server-handle-signals",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Returns a server instance capable of handling SIGINT SIGTERM",
   "main": "build/index.js",
   "scripts": {

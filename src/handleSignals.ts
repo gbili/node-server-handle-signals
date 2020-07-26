@@ -1,3 +1,5 @@
+import { CloseableServer, StoppableServer } from "./handlSignals";
+
 const registerListener = function (shutdown: () => void) {
   process.on('SIGTERM', () => {
     console.log(`Got SIGTERM (docker container stop). Graceful shutdown.`, new Date().toISOString())
