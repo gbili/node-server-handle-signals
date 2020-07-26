@@ -1,8 +1,16 @@
-export type Server = {
-  close(callback?: (err?: Error) => void): Server;
+const registerListener = function (shutdown: () => void) {
+  process.on('SIGTERM', () => {
+    console.log(`Got SIGTERM (docker container stop). Graceful shutdown.`, new Date().toISOString())
+    shutdown();
+  });
+
+  process.on('SIGINT', () => {
+    console.log(`Got SIGINT (aka ctrl-c in docker). Graceful shutdown.`, new Date().toISOString())
+    shutdown();
+  });
 }
 
-export default function handleSignals(server: Server): Server {
+export const onShutdownClose = function (server: CloseableServer): CloseableServer {
   const shutdown = () => {
     server.close(function onServerClosed(err) {
       if (err) {
@@ -13,15 +21,25 @@ export default function handleSignals(server: Server): Server {
     });
   };
 
-  process.on('SIGTERM', () => {
-    console.log(`Got SIGTERM (docker container stop). Graceful shutdown.`, new Date().toISOString())
-    shutdown();
-  });
+  registerListener(shutdown);
 
-  process.on('SIGINT', () => {
-    console.log(`Got SIGINT (aka ctrl-c in docker). Graceful shutdown.`, new Date().toISOString())
-    shutdown();
-  });
+  return server;
+}
+
+export function onShutdownStop(server: StoppableServer): StoppableServer {
+  const shutdown = async () => {
+    try {
+      await server.stop();
+    } catch (err) {
+      console.log(err);
+      process.exitCode = 1;
+    }
+    process.exit();
+  };
+
+  registerListener(shutdown);
 
   return server;
 };
+
+export default onShutdownClose;
