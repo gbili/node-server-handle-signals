@@ -1,0 +1,28 @@
+{
+  "name": "server-handle-signals",
+  "version": "1.0.0",
+  "description": "Returns a server instance capable of handling SIGINT SIGTERM",
+  "main": "./build/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gbili/node-server-handle-signals.git"
+  },
+  "keywords": [
+    "node",
+    "server",
+    "SIGINT",
+    "SIGTERM"
+  ],
+  "author": "Guillermo Pages <mail@guillermo.at> (https://guillermo.at)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gbili/node-server-handle-signals/issues"
+  },
+  "homepage": "https://github.com/gbili/node-server-handle-signals#readme",
+  "devDependencies": {
+    "@types/node": "14.0.26"
+  }
+}
