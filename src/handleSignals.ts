@@ -2,7 +2,7 @@ export type CloseableServer = {
   close(callback?: (err?: Error) => void): CloseableServer;
 }
 export type StoppableServer = {
-  stop(): Promise<StoppableServer>;
+  stop(): Promise<void>;
 }
 
 const registerListener = function (shutdown: () => void) {
